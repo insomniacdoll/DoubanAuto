@@ -11,6 +11,9 @@ logger = logmodule.LogModule()
 group_dict = dict()
 
 
+def get_headers():
+    return {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36'}
+
 def get_cookies():
     # 获取豆瓣登录Cookie信息
 
@@ -101,8 +104,8 @@ def cache_group_name_id():
 
 def get_verify_code_pic(url):
     # 获取验证码的图片URL和id
-
-    r = requests.get(url, cookies=get_cookies())
+    print(url)
+    r = requests.get(url, cookies=get_cookies(), headers=get_headers())
     if r.status_code == 200:
         pic_url, pic_id = get_image_and_id(r.text)
         logger.info(str(pic_url))

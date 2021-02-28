@@ -8,7 +8,7 @@ from verifycode import wordrecognition
 def comment_topic(topic_url, comment_dict):
     # 在一个帖子下发表回复
 
-    r = requests.post(topic_url, cookies=doubanutil.get_cookies(),
+    r = requests.post(topic_url, cookies=doubanutil.get_cookies(), headers=doubanutil.get_headers(),
                       data=comment_dict)
     doubanutil.logger.info("in func comment_topic(), " +
                            str(comment_dict) + ", status_code: " + str(r.status_code))
@@ -19,6 +19,7 @@ def make_comment_dict(topic_url, rv_comment):
     # 组装回帖的参数
 
     pic_url, pic_id = doubanutil.get_verify_code_pic(topic_url)
+    print(pic_url, pic_id)
     verify_code = ""
     if len(pic_url):
         pic_path = tools.save_pic_to_disk(pic_url)
